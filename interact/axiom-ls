@@ -22,8 +22,8 @@ else
 		resp=$(query_instances "$1")
 		count=$(echo $resp | tr ' ' '\n' | wc -l | awk '{ print $1 }')
 
-		if [[ "$count" -gt 1 ]]; then
-			i=1
+		if [[ "$count" -gt 0 ]]; then
+			i=0
 			for name in $resp; do
 				echo "$i:$name"
 				i=$((i + 1))
