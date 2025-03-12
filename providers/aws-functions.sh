@@ -252,9 +252,9 @@ query_instances() {
 
         if [[ "$var" == *"*"* ]]; then
             var=$(echo "$var" | sed 's/*/.*/g')
-            matches=$(echo "$droplets" | jq -r '.Reservations[].Instances[] | select(.State.Name != "terminated") | select(.Key == "Name") | .Value' | grep -E "^${var}$")
+            matches=$(echo "$droplets" | jq -r '.Reservations[].Instances[].Tags?[]? | select(.State.Name != "terminated") | select(.Key == "Name") | .Value' | grep -E "^${var}$")
         else
-            matches=$(echo "$droplets" | jq -r '.Reservations[].Instances[] | select(.State.Name != "terminated") | select(.Key == "Name") | .Value' | grep -w -E "^${var}$")
+            matches=$(echo "$droplets" | jq -r '.Reservations[].Instances[].Tags?[]? | select(.State.Name != "terminated") | select(.Key == "Name") | .Value' | grep -w -E "^${var}$")
         fi
 
         if [[ -n "$matches" ]]; then
