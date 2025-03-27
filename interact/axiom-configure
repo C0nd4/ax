@@ -129,7 +129,7 @@ function bash_shell(){
 
 function zsh_shell(){
     timestamp=$(date +%Y-%m-%d_%H-%M-%S)
-    sudo apt install zsh -y
+    sudo DEBIAN_FRONTEND=noninteractive apt install zsh -y
     echo -e "${BGreen}Backing up $(echo "$HOME"/.zshrc) to $(echo "$HOME"/.zshrc-$timestamp) just in case.${Color_Off}"
     cp "$HOME"/.zshrc "$HOME"/.zshrc-$timestamp >> /dev/null 2>&1
 
@@ -187,7 +187,7 @@ function omz_shell(){
     echo -e "${BGreen}Backing up $(echo "$HOME"/.oh-my-zsh/) to $(echo "$HOME"/.oh-my-zsh-$timestamp) just in case.${Color_Off}"
     mv "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
 
-    sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions -y
+    sudo DEBIAN_FRONTEND=noninteractive apt install zsh zsh-syntax-highlighting zsh-autosuggestions -y
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     if [[ "$unattended" == "true" ]]; then
         echo -e "${BGreen}Installing Golang ${GolangVersion}${Color_Off}"
@@ -402,12 +402,12 @@ if [[ $BASEOS == "Linux" ]]; then
        fi
 
        echo -e "${BGreen}Installing fail2ban ufw jq git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils openssh-server...${Color_Off}"
-       DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get install ufw git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils openssh-server fail2ban jq -y 
+       sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install ufw git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils openssh-server fail2ban jq -y 
        echo -e "${BGreen}Installing packer...${Color_Off}"
        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" -y
-       sudo apt-get update
-       sudo apt-get install packer -y
+       sudo DEBIAN_FRONTEND=noninteractive apt-get update
+       sudo DEBIAN_FRONTEND=noninteractive apt-get install packer -y
 
         # Check if the apt install failed or the version is still incorrect
         installed_packer_version=$(packer version 2>/dev/null | cut -d ' ' -f 2 | cut -d v -f2-)
