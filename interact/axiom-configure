@@ -402,7 +402,8 @@ if [[ $BASEOS == "Linux" ]]; then
        fi
 
        echo -e "${BGreen}Installing fail2ban ufw jq git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils openssh-server...${Color_Off}"
-       sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install ufw git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils openssh-server fail2ban jq -y 
+       sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt-get update 
+       sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt-get install ufw git python3-pip curl iputils-ping net-tools unzip xsltproc bc rsync sudo wget nano bsdmainutils fail2ban jq -y 
        echo -e "${BGreen}Installing packer...${Color_Off}"
        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" -y
