@@ -237,14 +237,21 @@ function omz_shell(){
 }
 function omz_shell_min(){
     timestamp=$(date +%Y-%m-%d_%H-%M-%S)
-    echo -e "${BGreen}Backing up $(echo "$HOME"/.zshrc) to $(echo "$HOME"/.zsh-$timestamp) just in case.${Color_Off}"
+    echo -e "${BGreen}Backing up $(echo "$HOME"/.zshrc) to $(echo "$HOME"/.zshrc-$timestamp) just in case.${Color_Off}"
     cp "$HOME"/.zshrc "$HOME"/.zshrc-$timestamp >> /dev/null 2>&1
     echo -e "${BGreen}Backing up $(echo "$HOME"/.oh-my-zsh/) to $(echo "$HOME"/.oh-my-zsh-$timestamp) just in case.${Color_Off}"
     cp "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
 
-    echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact\"" >>~/.zshrc
+    # Ensure the line is added only if it doesn't already exist
+    if ! grep -q 'export PATH="\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact"' "$HOME"/.zshrc; then
+        echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact\"" >> "$HOME"/.zshrc
+    else
+        echo -e "${BGreen}The line already exists in $(echo "$HOME"/.zshrc). Skipping addition.${Color_Off}"
+    fi
+
     source "${HOME}"/.zshrc >> /dev/null 2>&1
 }
+
 
 ###########################################################################################################
 # Help Menu
