@@ -235,6 +235,17 @@ function omz_shell(){
         done
     fi
 }
+function omz_shell_min(){
+    timestamp=$(date +%Y-%m-%d_%H-%M-%S)
+    echo -e "${BGreen}Backing up $(echo "$HOME"/.zshrc) to $(echo "$HOME"/.zsh-$timestamp) just in case.${Color_Off}"
+    mv "$HOME"/.zshrc "$HOME"/.zshrc-$timestamp >> /dev/null 2>&1
+    echo -e "${BGreen}Backing up $(echo "$HOME"/.oh-my-zsh/) to $(echo "$HOME"/.oh-my-zsh-$timestamp) just in case.${Color_Off}"
+    mv "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
+
+    echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact\"" >>~/.zshrc
+    echo "source $HOME/.axiom/interact/includes/ax-completion.sh" >> ~/.zshrc
+    source "${HOME}"/.zshrc >> /dev/null 2>&1
+}
 
 ###########################################################################################################
 # Help Menu
@@ -581,7 +592,7 @@ else
 echo -e "${BGreen}Choose bash/zsh to add Ax to .bashrc/.zshrc. OMZ installs Oh My Zsh and replaces .zshrc and .oh-my-zsh"
 echo -e "${BGreen}Whatever option you choose, we backup your config to ~/.\$shell-\$timestamp just in case${Color_Off}"
  PS3="Please select an option : "
-  choices=("Bash" "Zsh" 'Oh My Zsh')
+  choices=("Bash" "Zsh" 'Oh My Zsh', 'Min')
   select choice in "${choices[@]}"; do
    case $choice in
    Bash)
@@ -594,6 +605,10 @@ echo -e "${BGreen}Whatever option you choose, we backup your config to ~/.\$shel
    ;;
   'Oh My Zsh')
    omz_shell
+  break
+   ;;
+  Min)
+   omz_shell_min
   break
    ;;
 esac
