@@ -243,7 +243,6 @@ function omz_shell_min(){
     mv "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
 
     echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact\"" >>~/.zshrc
-    echo "source $HOME/.axiom/interact/includes/ax-completion.sh" >> ~/.zshrc
     source "${HOME}"/.zshrc >> /dev/null 2>&1
 }
 
