@@ -586,6 +586,8 @@ elif [[ $usershell == "bash" ]]|| [[ $usershell == "Bash" ]] || [[ $usershell ==
 bash_shell
 elif [[ $usershell == "zsh" ]]|| [[ $usershell == "Zsh" ]] || [[ $usershell == "ZSH" ]] ; then
 zsh_shell
+elif [[ $usershell == "Min" ]]|| [[ $usershell == "min" ]] ; then
+omz_shell_min
 else
 
 # Pick your shell
