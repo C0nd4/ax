@@ -238,9 +238,9 @@ function omz_shell(){
 function omz_shell_min(){
     timestamp=$(date +%Y-%m-%d_%H-%M-%S)
     echo -e "${BGreen}Backing up $(echo "$HOME"/.zshrc) to $(echo "$HOME"/.zsh-$timestamp) just in case.${Color_Off}"
-    mv "$HOME"/.zshrc "$HOME"/.zshrc-$timestamp >> /dev/null 2>&1
+    cp "$HOME"/.zshrc "$HOME"/.zshrc-$timestamp >> /dev/null 2>&1
     echo -e "${BGreen}Backing up $(echo "$HOME"/.oh-my-zsh/) to $(echo "$HOME"/.oh-my-zsh-$timestamp) just in case.${Color_Off}"
-    mv "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
+    cp "$HOME"/.oh-my-zsh "$HOME"/.oh-my-zsh-$timestamp >> /dev/null 2>&1
 
     echo "export PATH=\"\$PATH:\$HOME/.local/bin:\$HOME/.axiom/interact\"" >>~/.zshrc
     source "${HOME}"/.zshrc >> /dev/null 2>&1
